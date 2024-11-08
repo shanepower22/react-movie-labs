@@ -69,13 +69,20 @@ export const getMovies = () => {
    });
   };
 
-  export const getMovieReviews = (id) => {
+  export const getMovieReviews = ({ queryKey }) => {
+    const [, idPart] = queryKey;
+    const { id } = idPart;
     return fetch(
       `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.REACT_APP_TMDB_KEY}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        // console.log(json.results);
-        return json.results;
-      });
+    ).then( (response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error
+   });
   };

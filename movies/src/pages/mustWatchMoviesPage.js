@@ -4,7 +4,7 @@ import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
-
+import PlaylistRemoveIcon from "../components/cardIcons/playlistRemove";
 const MustWatchMoviesPage = () => {
   const {mustWatchMovies: movieIds } = useContext(MoviesContext);
 
@@ -38,7 +38,7 @@ const MustWatchMoviesPage = () => {
       action={(movie) => {
         return (
           <>
-            
+            <PlaylistRemoveIcon movie={movie} />
           </>
         );
       }}

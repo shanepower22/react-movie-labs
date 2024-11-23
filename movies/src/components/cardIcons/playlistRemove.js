@@ -6,12 +6,12 @@ import { MoviesContext } from "../../contexts/moviesContext";
 const PlaylistRemoveIcon = ({ movie }) => {
 const context = useContext(MoviesContext);
 
-  const handleAddToMustWatch = (e) => {
+  const handleRemoveFromMustWatch = (e) => {
     e.preventDefault();
-    // context.removeFromMustWatch(movie);
+    context.removeFromMustWatch(movie);
   };
     return (
-        <IconButton aria-label="remove from playlist" onClick={handleAddToMustWatch}>
+        <IconButton aria-label="remove from playlist" onClick={handleRemoveFromMustWatch}>
           <RemoveFromPlaylistIcon color="primary" fontSize="large" />
         </IconButton>
       );

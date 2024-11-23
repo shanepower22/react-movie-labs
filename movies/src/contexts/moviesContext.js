@@ -37,6 +37,11 @@ const MoviesContextProvider = (props) => {
 
   console.log(mustWatchMovies)
 
+  const removeFromMustWatch = (movie) => {
+    setMustWatch( mustWatchMovies.filter(
+      (mId) => mId !== movie.id
+    ) )
+  };
 
   // We will use this function in the next step
   const removeFromFavorites = (movie) => {
@@ -53,7 +58,8 @@ const MoviesContextProvider = (props) => {
         removeFromFavorites,
         addReview,
         mustWatchMovies,
-        addToMustWatch
+        addToMustWatch,
+        removeFromMustWatch
       }}
     >
       {props.children}

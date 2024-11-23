@@ -6,7 +6,7 @@ import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import PlaylistAddIcon from "../components/cardIcons/playlistAdd";
 
-const HomePage = (props) => {
+const UpcomingMovies = (props) => {
 
   const {  data, error, isLoading, isError }  = useQuery('upcoming', getUpcomingMovies)
 
@@ -38,4 +38,4 @@ const HomePage = (props) => {
     />
 );
 };
-export default HomePage;
+export default UpcomingMovies;

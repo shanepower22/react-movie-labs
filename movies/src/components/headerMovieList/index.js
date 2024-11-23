@@ -23,6 +23,17 @@ const Header = (props ) => {
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
 
+      <Typography
+        variant="h4"
+        component="h1"
+        sx={{
+          textAlign: "center",
+          flex: "1", 
+        }}
+      >
+        {title}
+      </Typography>
+      
       <IconButton aria-label="go forward" onClick={() => navigate(+1)}>
         <ArrowForwardIcon color="primary" fontSize="large" />
       </IconButton>

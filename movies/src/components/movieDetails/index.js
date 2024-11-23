@@ -11,7 +11,8 @@ import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
 import { getMovieCredits } from "../../api/tmdb-api";
-
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
 
 const root = {
     display: "flex",
@@ -31,7 +32,8 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
     getMovieCredits
   );
 
-  console.log(credits);
+  const cast = credits?.cast || []; // prevent "credits is undefined" error
+    // console.log(credits);
   return (
     <>
       <Typography variant="h5" component="h3">
@@ -80,6 +82,38 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           </li>
         ))}
       </Paper>
+      
+      <Typography variant="h5" component="h3" sx={{ marginTop: "20px" }}>
+        Cast
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "10px",
+          overflowX: "auto",
+          padding: "10px",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {cast.map((member) => (
+          <Chip
+            key={member.credit_id}
+            avatar={
+              member.profile_path ? (
+                <Avatar
+                  alt={member.name}
+                  src={`https://image.tmdb.org/t/p/w92${member.profile_path}`}
+                />
+              ) : (
+                <Avatar>{member.name}</Avatar>
+              )
+            }
+            label={`${member.name} as ${member.character}`}
+            sx={{ marginRight: "5px" }}
+          />
+        ))}
+      </Box>
+
       <Fab
         color="secondary"
         variant="extended"

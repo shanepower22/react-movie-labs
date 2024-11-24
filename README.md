@@ -54,9 +54,7 @@ To start the react server in development mode, navigate to the movies folder in 
 
 ## Independent learning (If relevant).
 
-Itemize the technologies/techniques you researched independently and adopted in your project, 
-i.e. aspects not covered in the lectures/labs. Include the source code filenames that illustrate these 
-(we do not require code excerpts) and provide references to the online resources that helped you (articles/blogs).
+
 
 + Pagination - used the [Material UI API reference docs](https://mui.com/material-ui/react-pagination/)
 + React Router DOM Location Hook - Used for displaying the sorting menu only on certain pages, [this article](https://medium.com/@umesh.rana0269/how-to-use-location-hook-in-react-router-dom-v6-010cf5facae9) helped me understand how the parameters worked.

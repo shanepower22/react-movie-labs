@@ -10,7 +10,7 @@ import {Box} from "@mui/material";
 const HomePage = () => {
 
   const [page, setPage] = useState(1);
-  const [sortInfo, setSortInfo] = useState("popularity.desc");
+  const [sortInfo, setSortInfo] = useState("popularity.desc"); // default to most popular
   const {  data, error, isLoading, isError }  = useQuery(['discover', { page, sortOption: sortInfo }], getMovies);
 
   if (isLoading) {

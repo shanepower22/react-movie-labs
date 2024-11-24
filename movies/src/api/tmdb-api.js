@@ -1,6 +1,5 @@
-export const getMovies = ( queryKey) => {
-  const [, pagePart] = queryKey;
-    const { page } = pagePart;
+export const getMovies = ( {queryKey}) => {
+  const {page} = queryKey[1]; // directly access int, avoid Object object error
     return fetch(
       `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
     ).then((response) => {

@@ -30,7 +30,7 @@ export default function MovieCard({ movie, action }) {  const { favorites, addTo
   };
 
   return (
-    <Card>
+    <Card sx={{height: 700, width: 250}}>
        <CardHeader
         avatar={
           movie.favorite ? (
@@ -40,7 +40,7 @@ export default function MovieCard({ movie, action }) {  const { favorites, addTo
           ) : null
         }
         title={
-          <Typography variant="h5" component="p">
+          <Typography variant="h6" component="h">
             {movie.title}{" "}
           </Typography>
         }
@@ -56,13 +56,13 @@ export default function MovieCard({ movie, action }) {  const { favorites, addTo
       <CardContent>
         <Grid container>
           <Grid size={{xs: 6}}>
-            <Typography variant="h6" component="p">
+            <Typography variant="subtitle1" component="p">
               <CalendarIcon fontSize="small" />
               {movie.release_date}
             </Typography>
           </Grid>
           <Grid size={{xs: 6}}>
-            <Typography variant="h6" component="p">
+            <Typography variant="subtitle1" component="p">
               <StarRateIcon fontSize="small" />
               {"  "} {movie.vote_average}{" "}
             </Typography>

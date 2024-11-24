@@ -67,9 +67,7 @@ export default function MovieCard({ movie, action }) {  const { favorites, addTo
               {"  "} {movie.vote_average}{" "}
             </Typography>
           </Grid>
-        </Grid>
-      </CardContent>
-      <CardActions disableSpacing>
+          <Grid><CardActions disableSpacing>
       
       {action(movie)}
     
@@ -79,7 +77,10 @@ export default function MovieCard({ movie, action }) {  const { favorites, addTo
         </Button>
       </Link>
       
-    </CardActions>
+    </CardActions></Grid>
+        </Grid>
+      </CardContent>
+      
     </Card>
   );
 }

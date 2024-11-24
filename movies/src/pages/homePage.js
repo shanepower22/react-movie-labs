@@ -46,7 +46,7 @@ const HomePage = (props) => {
     }}
   >
    <Pagination
-          count={data.total_pages} 
+          count="500" 
           page={page} 
           onChange={handlePageChange} 
           color="primary"

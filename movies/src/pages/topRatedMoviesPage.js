@@ -1,13 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import { getTopRatedMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
-
+import { Pagination } from "@mui/material";
+import {Box} from "@mui/material";
 const TopRatedMovies = (props) => {
 
-  const {  data, error, isLoading, isError }  = useQuery('toprated', getTopRatedMovies)
+  const [page, setPage] = useState(1);
+  const {  data, error, isLoading, isError }  = useQuery(['toprated', {page}], getTopRatedMovies);
 
   if (isLoading) {
     return <Spinner />
@@ -23,7 +25,11 @@ const TopRatedMovies = (props) => {
   localStorage.setItem('favorites', JSON.stringify(favorites))
   const addToFavorites = (movieId) => true 
 
-  return (
+  const handlePageChange = (event, value) => {
+    setPage(value); 
+  };
+
+  return (<Box>
     <PageTemplate
       title="Top Rated Movies"
       movies={movies}
@@ -31,6 +37,23 @@ const TopRatedMovies = (props) => {
         return <AddToFavoritesIcon movie={movie} />
       }}
     />
+    <Box
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "20px",
+    }}
+  >
+   <Pagination
+          count="500" 
+          page={page} 
+          onChange={handlePageChange} 
+          color="primary"
+          size="large"
+        /> 
+  </Box>
+  </Box>
 );
 };
 export default TopRatedMovies;

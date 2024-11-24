@@ -10,9 +10,16 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
-import { getMovieCredits } from "../../api/tmdb-api";
+import { getMovieCredits, getSimilarMovies } from "../../api/tmdb-api";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardMedia from "@mui/material/CardMedia";
+import img from '../../images/film-poster-placeholder.png'
+import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
+import CardHeader from "@mui/material/CardHeader"
 
 const root = {
     display: "flex",
@@ -27,12 +34,18 @@ const chip = { margin: 0.5 };
 const MovieDetails = ({ movie }) => {  // Don't miss this!
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const { data: credits, error, isLoading, isError } = useQuery(
+  const { data: credits, creditsError, creditsIsLoading, creditsIsError } = useQuery(
     ["credits", { id: movie.id }],
     getMovieCredits
   );
 
+  const { data: similar, similarError, similarIsLoading, similarIsError } = useQuery(
+    ["similar", { id: movie.id }],
+    getSimilarMovies
+  );
+
   const cast = credits?.cast || []; // prevent "credits is undefined" error
+  const similarMovies = similar?.results || [];
     // console.log(credits);
   return (
     <>
@@ -113,6 +126,51 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           />
         ))}
       </Box>
+      <Typography variant="h5" component="h3" sx={{ marginTop: "20px" }}>
+        Similar Movies
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "10px",
+          overflowX: "auto",
+          padding: "10px",
+          whiteSpace: "nowrap",
+        }}
+      >
+      {similarMovies.map((similarMovie) => (
+      <Card sx={{minWidth: 300}}>
+        <CardHeader
+        
+        title={
+          <Typography variant="h5" component="p">
+            {similarMovie.title}{" "}
+          </Typography>
+        }
+      />
+      <CardMedia
+        sx={{ height: 400 }}
+        image={
+          similarMovie.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${similarMovie.poster_path}`
+            : img
+        }
+      />
+      
+      <CardActions disableSpacing>
+      
+    
+      <Link to={`/movies/${similarMovie.id}`}>
+        <Button variant="outlined" size="medium" color="primary">
+          More Info ...
+        </Button>
+      </Link>
+      
+    </CardActions>
+    </Card>
+    
+))}
+</Box>
 
       <Fab
         color="secondary"

@@ -1,7 +1,9 @@
 export const getMovies = ( {queryKey}) => {
   const {page} = queryKey[1]; // directly access int, avoid Object object error
-    return fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
+  const { sortOption } = queryKey[1];
+  console.log(sortOption);
+  return fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&sort_by=${sortOption}&language=en-US&include_adult=false&include_video=false&page=${page}`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {

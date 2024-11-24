@@ -14,16 +14,19 @@ const formControl =
     backgroundColor: "rgb(255, 255, 255)"
   };
 
-export default function SortMoviesCard(sortOption, onSortChange) {
-
+export default function SortMoviesCard({onSortChange, sortInfo}) {
   
+  const [sortOption, setSortOption] = useState(sortInfo || "popularity.desc");    
  
-  const handleChange = (e) => { 
-    onSortChange(e.target.value);;
-  };
 
+  const handleSortChange = (e) => {
+    e.preventDefault(); 
+    
+    setSortOption(e.target.value);
+    onSortChange(e.target.value);
+  };
   
-  return (
+    return (
     <Card
       sx={{
         backgroundColor: "rgb(153, 153, 255)",
@@ -35,16 +38,21 @@ export default function SortMoviesCard(sortOption, onSortChange) {
         <Typography variant="h6" component="h1">
           Sort Movies
         </Typography>
-        <FormControl sx={{ ...formControl }}>
+        <FormControl sx={{ ...formControl }} key={sortOption}>
           <Select
             id="sort-select"
             value={sortOption}
-            onChange={handleChange}
+            onChange={handleSortChange}
           >
             <MenuItem value="popularity.desc">Most Popular</MenuItem>
+            <MenuItem value="popularity.asc">Least Popular</MenuItem>
             <MenuItem value="vote_average.desc">Highest Rated</MenuItem>
+            <MenuItem value="vote_average.asc">Lowest Rated</MenuItem>
             <MenuItem value="release_date.desc">Newest Releases</MenuItem>
+            <MenuItem value="release_date.asc">Oldest Releases</MenuItem>
             <MenuItem value="original_title.asc">Title (A-Z)</MenuItem>
+            <MenuItem value="original_title.desc">Title (Z-A)</MenuItem>
+
           </Select>
         </FormControl>
       </CardContent>

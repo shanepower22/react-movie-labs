@@ -7,11 +7,11 @@ import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import { Pagination } from "@mui/material";
 import {Box} from "@mui/material";
 
-const HomePage = (props) => {
+const HomePage = () => {
 
   const [page, setPage] = useState(1);
-
-  const {  data, error, isLoading, isError }  = useQuery(['discover', {page}], getMovies);
+  const [sortInfo, setSortInfo] = useState("popularity.desc");
+  const {  data, error, isLoading, isError }  = useQuery(['discover', { page, sortOption: sortInfo }], getMovies);
 
   if (isLoading) {
     return <Spinner />
@@ -20,7 +20,7 @@ const HomePage = (props) => {
   if (isError) {
     return <h1>{error.message}</h1>
   }  
-  const movies = data.results;
+ const movies = data?.results || [];
 
   // Redundant, but necessary to avoid app crashing.
   const favorites = movies.filter(m => m.favorite)
@@ -31,13 +31,21 @@ const HomePage = (props) => {
     setPage(value); 
   };
 
+  const handleSortInfoChange = (newSortInfo) => {
+    setSortInfo(newSortInfo);
+    console.log(newSortInfo)
+  };
+
   return (<Box>
     <PageTemplate
       title="Discover Movies"
       movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />
-      }}
+      
+      action={(movie) => <AddToFavoritesIcon movie={movie} />}
+      onSortChange={handleSortInfoChange}
+      sortInfo={sortInfo}
+  
+      
     /><Box
     sx={{
       display: "flex",

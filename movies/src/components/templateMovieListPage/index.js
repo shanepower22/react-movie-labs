@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "../headerMovieList";
-import FilterCard from "../filterMoviesCard";
+import FilterMovieCard from "../filterMoviesCard";
+import SortMoviesCard from "../sortMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid2";
 
@@ -8,6 +9,7 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const genreId = Number(genreFilter);
+  const [sortOption, setSortOption] = useState("popularity.desc");
 
   let displayedMovies = movies
     .filter((m) => {
@@ -22,6 +24,10 @@ function MovieListPageTemplate({ movies, title, action }) {
     else setGenreFilter(value);
   };
 
+  const handleSortChange = (value) => {
+    setSortOption(value);
+  };
+
   return (
     <Grid container>
       <Grid size={12}>
@@ -33,11 +39,13 @@ function MovieListPageTemplate({ movies, title, action }) {
           size={{xs: 12, sm: 6, md: 4, lg: 3, xl: 2}} 
           sx={{padding: "20px"}}
         >
-          <FilterCard
+          <FilterMovieCard
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
           />
+  
+  <SortMoviesCard sortOption={sortOption} onSortChange={handleSortChange} />
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>      </Grid>
     </Grid>

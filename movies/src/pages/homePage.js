@@ -6,6 +6,7 @@ import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import { Pagination } from "@mui/material";
 import {Box} from "@mui/material";
+
 const HomePage = (props) => {
 
   const [page, setPage] = useState(1);

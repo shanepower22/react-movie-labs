@@ -7,12 +7,15 @@ import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import PlaylistAddIcon from "../components/cardIcons/playlistAdd";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
+import { Pagination } from "@mui/material";
+import {Box} from "@mui/material";
 
 const TrendingMovies = (props) => {
 
+  const [page, setPage] = useState(1);
   const [time_window, setTimeWindow] = useState("day");
   const {  data, error, isLoading, isError }  = useQuery
-    (["trendingMovies", { time_window }], getTrendingMovies)
+    (["trendingMovies", { time_window }, {page}], getTrendingMovies)
   
 
   if (isLoading) {
@@ -29,6 +32,9 @@ const TrendingMovies = (props) => {
   localStorage.setItem('favorites', JSON.stringify(favorites))
   const addToFavorites = (movieId) => true 
 
+  const handlePageChange = (event, value) => {
+    setPage(value); 
+  };
   return (
     <>
       <ButtonGroup sx={{display: "flex", justifyContent: "center", alignItems: "center"}} variant="outlined">
@@ -45,6 +51,7 @@ const TrendingMovies = (props) => {
           Week
         </Button>
       </ButtonGroup>
+      <Box>
       <PageTemplate
         title={`Trending Movies (${time_window})`}
         movies={movies}
@@ -55,6 +62,23 @@ const TrendingMovies = (props) => {
           </>
         )}
       />
+      <Box
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "20px",
+    }}
+  >
+   <Pagination
+          count="500" 
+          page={page} 
+          onChange={handlePageChange} 
+          color="primary"
+          size="large"
+        /> 
+  </Box>
+  </Box>
     </>
 );
 };

@@ -50,10 +50,11 @@ export const getMovies = ( {queryKey}) => {
   };
   
   export const getTrendingMovies = ({ queryKey }) => {
-    const [, timePart] = queryKey;
+    const [, timePart, pagePart] = queryKey;
     const { time_window } = timePart;
+    const { page} = pagePart
     return fetch(
-      `https://api.themoviedb.org/3/trending/movie/${time_window}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+      `https://api.themoviedb.org/3/trending/movie/${time_window}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=${page}`
     ).then( (response) => {
       if (!response.ok) {
         return response.json().then((error) => {

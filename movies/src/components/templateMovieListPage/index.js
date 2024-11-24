@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../headerMovieList";
+import { useLocation } from "react-router-dom";
 import FilterMovieCard from "../filterMoviesCard";
 import SortMoviesCard from "../sortMoviesCard";
 import MovieList from "../movieList";
@@ -10,6 +11,7 @@ function MovieListPageTemplate({ movies, title, action, onSortChange, sortInfo }
   const [genreFilter, setGenreFilter] = useState("0");
   const genreId = Number(genreFilter);
 
+  const location = useLocation(); 
   let displayedMovies = movies
     .filter((m) => {
       return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
@@ -41,9 +43,9 @@ function MovieListPageTemplate({ movies, title, action, onSortChange, sortInfo }
             titleFilter={nameFilter}
             genreFilter={genreFilter}
           />
-  
-        <SortMoviesCard  onSortChange={onSortChange} sortInfo={sortInfo}/>
-        </Grid>
+                          {/* only render sorting card when on homepage */}
+    {location.pathname === "/" && <SortMoviesCard onSortChange={onSortChange} sortInfo={sortInfo} />} 
+         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>      </Grid>
     </Grid>
   );
